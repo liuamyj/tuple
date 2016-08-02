@@ -1,0 +1,19 @@
+.container {
+	width: 550px;
+}
+
+.card {
+	display: inline-block; 
+}
+
+.red {
+	color: red;
+}
+
+.green {
+	color: green; 
+}
+
+.blue {
+	color: blue;
+}

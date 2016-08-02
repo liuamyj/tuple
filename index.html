@@ -8,9 +8,11 @@
 
         <script src="mainController.js"></script>
         <link rel="stylesheet" type="text/css" href="main.css" />
+
+        <script src="components/board/boardController.js"></script>
+        <link rel="stylesheet" type="text/css" href="components/board/board.css" />
     </head>
-    <body ng-controller="MainController">
-        <h1>{{board}}</h1>
-        
+    <body>
+        <div ng-include="'components/board/boardTemplate.html'" ng-controller="BoardController"></div>
     </body>
 </html>
