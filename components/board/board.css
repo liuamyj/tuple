@@ -1,9 +1,21 @@
 .container {
-	width: 550px;
+	width: 700px;
 }
 
 .card {
 	display: inline-block; 
+	text-align: center;
+	line-height: 120px; 
+	width: 200px;
+	height: 120px; 
+	margin: 10px;
+	border: 1px solid black; 
+	border-radius: 10px;
+}
+
+.shape {
+	display: inline-block; 
+	font-size: 50px;
 }
 
 .red {
@@ -16,4 +28,12 @@
 
 .blue {
 	color: blue;
+}
+
+.solid {
+	text-decoration: overline;
+}
+
+.shaded {
+	text-decoration: underline;
 }
