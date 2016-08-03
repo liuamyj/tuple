@@ -21,22 +21,27 @@ app.controller('BoardController', ['$scope', '$resource', function($scope, $reso
 			if ($scope.numSelected < 3) {
 	   			$scope.selected[index] = true;
 	   			$scope.numSelected++; 
-	   			console.log(index); 
-	   		} else {
+	   		} 
+	   		if ($scope.numSelected === 3) {
 	   			var set = []; 
 	   			for (var i = 0; i < numCards; i++) {
-	   				if (selected[i] === true) set.push(selected[i]); 
+	   				if ($scope.selected[i] === true) set.push($scope.board[i]); 
 	   			}
 
 	   			//check if 3 selected cards make a set 
 	   			if (checkSet(set)) {
-
+	   				console.log("set"); 
 	   			}
 	   		}
    		}
 	};
 
 	function checkSet(set) {
-		
+		for (var index = 0; index < 4; index++) {
+			if (!(((set[0][index] === set[1][index]) && (set[1][index] === set[2][index])) || 
+				((set[0][index] !== set[1][index]) && (set[1][index] !== set[2][index]) && (set[0][index] !== set[2][index]))))
+				return false; 
+		}
+		return true; 
 	};
 }]);

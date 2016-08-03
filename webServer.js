@@ -41,6 +41,19 @@ app.get('/newGame', function (request, response) {
   	return;
 });
 
+app.get('/deal3Cards', function (request, response) {
+	var newCards = [];
+
+	for (var i = 0; i < 3; i++) {
+		var rand = Math.floor(Math.random() * cards.length);
+		newCards.push(cards[rand]); 
+		cards.splice(rand, 1); 
+	}
+
+	response.status(200).send(newCards);
+  	return;
+});
+
 // io.on('connection', function(socket){
 //   //console.log('a user connected');
 //   socket.on('disconnect', function(){
