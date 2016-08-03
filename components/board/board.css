@@ -13,6 +13,10 @@
 	border-radius: 10px;
 }
 
+.selected {
+	box-shadow: 0 0 0 4px yellow;
+}
+
 .shape {
 	display: inline-block; 
 	font-size: 50px;
