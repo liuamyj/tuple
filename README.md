@@ -1,7 +1,7 @@
 To use: 
 
 ```
-git clone https://github.com/liuamyj/tuple.git
+git clone https://github.com/liuamyj/tuple
 cd tuple
 npm install
 node webServer.js
