@@ -15,7 +15,8 @@ var server = app.listen(portno, function () {
 });
 
 app.get('/newGame', function (request, response) {
-
+	
+	cards = [];
 	//populate the cards array w/ all 81 cards
 	for (var i = 1; i <= 3; i++) {
 		for (var j = 1; j <= 3; j++) {
