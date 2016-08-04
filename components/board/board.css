@@ -1,3 +1,18 @@
+.header {
+	width: 660px; 
+	overflow: auto;
+}
+
+.score {
+	float: left;
+	font-size: 20px;
+}
+
+.timer {
+	float: right; 
+	font-size: 20px;
+}
+
 .container {
 	width: 700px;
 }
@@ -12,10 +27,6 @@
 	border: 1px solid black; 
 	border-radius: 10px;
 	cursor: pointer;
-}
-
-.score {
-	font-size: 20px;
 }
 
 .selected {

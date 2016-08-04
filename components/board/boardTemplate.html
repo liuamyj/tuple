@@ -1,4 +1,8 @@
-<div class="score">Number of SETs found: {{numSets}}</div>
+<div class="header">
+	<div class="score">Number of SETs found: {{numSets}}</div>
+	<div class="timer" ng-include="'components/timer/timerTemplate.html'" ng-controller="TimerController"></div>
+</div>
+
 <div class="container">
 	<div class="card" ng-repeat="card in board" ng-class="[{1:'red', 2:'green',3:'blue'}[card[0]], {selected: selected[$index] === true}]" ng-click="toggleSelected($index)">
 		<div class="shape" ng-repeat="n in [].constructor(card[1]) track by $index" ng-class="{1:'solid', 2:'shaded',3:'empty'}[card[2]]">{{card[3]}}</div> 

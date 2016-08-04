@@ -1,5 +1,4 @@
-
-var app = angular.module('myApp',['ngResource']);
+'use strict'; 
 
 app.controller('BoardController', ['$scope', '$resource', function($scope, $resource) {
 

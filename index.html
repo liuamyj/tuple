@@ -1,6 +1,6 @@
 <!doctype html>
 
-<html ng-app="myApp">
+<html ng-app="myApp" ng-controller="MainController">
     <head>
         <title>Tuple</title>
         <script src="node_modules/angular/angular.js"></script>
@@ -11,6 +11,9 @@
 
         <script src="components/board/boardController.js"></script>
         <link rel="stylesheet" type="text/css" href="components/board/board.css" />
+
+        <script src="components/timer/timerController.js"></script>
+        <link rel="stylesheet" type="text/css" href="components/timer/timer.css" />
     </head>
     <body>
         <div ng-include="'components/board/boardTemplate.html'" ng-controller="BoardController"></div>
