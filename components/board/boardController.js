@@ -2,6 +2,9 @@
 
 app.controller('BoardController', ['$scope', '$resource', function($scope, $resource) {
 
+	var cardsPerSet = 3; 
+	var maxCards = 15; 
+
 	var numCards; 
 	var Board = $resource('/newGame'); 
 	var board = Board.query({}, function(){
@@ -31,19 +34,40 @@ app.controller('BoardController', ['$scope', '$resource', function($scope, $reso
 	   			}
 	   			//check if 3 selected cards make a set
 	   			if (checkSet(set)) {
-	   				console.log("set"); 
 	   				$scope.numSets++; 
-	   				var NewCards = $resource('/deal3Cards'); 
-	   				var newCards = NewCards.query({}, function(){
-	   					for (var j = 0; j < 3; j++) {
-	   						board[set[j]] = newCards[j]; 
-	   						$scope.selected[set[j]] = false; 
-	   					}
-	   					$scope.numSelected = 0;
-	   				});
+	   				$scope.numSelected = 0;
+
+	   				if (numCards <= 12) {
+		   				var NewCards = $resource('/deal3Cards'); 
+		   				var newCards = NewCards.query({}, function(){
+		   					for (var j = 0; j < set.length; j++) {
+		   						board[set[j]] = newCards[j]; 
+		   						$scope.selected[set[j]] = false; 
+		   					}
+		   				});
+	   				} else {
+	   					for (var j = set.length-1; j >= 0; j--) {
+		   					board.splice(set[j], 1);  
+		   					$scope.selected[set[j]] = false; 
+		   					numCards--; 
+		   				}
+	   				}
 	   			}
 	   		}
    		}
+	};
+
+	$scope.dealMore = function() {
+		if (numCards < 15) {
+			var NewCards = $resource('/deal3Cards'); 
+		   	var newCards = NewCards.query({}, function(){
+		   		for (var j = 0; j < newCards.length; j++) {
+		   			board.push(newCards[j]); 
+		   			$scope.selected[board.length - 1] = false; 
+		   			numCards++; 
+		   		}
+		   	});
+	   }
 	};
 
 	function checkSet(set) {

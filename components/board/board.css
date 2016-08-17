@@ -1,6 +1,7 @@
 .header {
 	width: 660px; 
 	overflow: auto;
+	font-family: ProximaNova-Regular;
 }
 
 .score {
@@ -14,15 +15,16 @@
 }
 
 .container {
-	width: 700px;
+	width: 670px;
+	font-family: ProximaNova-Regular; 
 }
 
 .card {
 	display: inline-block; 
 	text-align: center;
-	line-height: 120px; 
 	width: 200px;
 	height: 120px; 
+	line-height: 120px; 
 	margin: 10px;
 	border: 1px solid black; 
 	border-radius: 10px;
@@ -56,4 +58,16 @@
 
 .shaded {
 	text-decoration: underline;
+}
+
+.deal-button {
+	text-align: center;
+	margin: 0 auto; 
+	width: 180px;
+	height: 40px; 
+	line-height: 40px; 
+	background-color: #4AACDE;
+	color: white; 
+	border-radius: 3px; 
+	cursor: pointer;
 }
