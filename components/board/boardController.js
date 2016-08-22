@@ -2,8 +2,9 @@
 
 app.controller('BoardController', ['$scope', '$rootScope', '$resource', function($scope, $rootScope, $resource) {
 
-	var cardsPerSet = 3; 
-	var maxCards = 15; 
+	const CARDS_PER_SET = 3; 
+	const DEFAULT_NUM = 12; 
+	const MAX_CARDS = 15; 
 
 	var numCards; 
 	var Board = $resource('/newGame'); 
@@ -18,18 +19,19 @@ app.controller('BoardController', ['$scope', '$rootScope', '$resource', function
 	$scope.canDealMore = true; 
 
 	$scope.toggleSelected = function(index) {
+		console.log($scope.canDealMore);
 		//if card is selected, deselect it
 		if ($scope.selected[index]) {
 			$scope.selected[index] = false; 
 			$scope.numSelected--; 
 		} else {
 			//if < 3 cards selected, add new card to selected
-			if ($scope.numSelected < 3) {
+			if ($scope.numSelected < CARDS_PER_SET) {
 	   			$scope.selected[index] = true;
 	   			$scope.numSelected++; 
 	   		}  
 	   		//if 3 cards are selected, check if they make a set
-	   		if ($scope.numSelected === 3) {
+	   		if ($scope.numSelected === CARDS_PER_SET) {
 	   			var set = []; 
 	   			for (var i = 0; i < numCards; i++) {
 	   				if ($scope.selected[i] === true) set.push(i); 
@@ -38,12 +40,13 @@ app.controller('BoardController', ['$scope', '$rootScope', '$resource', function
 	   				$scope.numSets++; 
 	   				$scope.numSelected = 0;
 
-	   				if (numCards === 12) {
+	   				if (numCards === DEFAULT_NUM) {
 		   				var NewCards = $resource('/deal3Cards'); 
 		   				var newCards = NewCards.query({}, function(){
 		   					//if no cards left
 		   					if (newCards.length === 0) {
 		   						removeCards(set); 
+		   						$scope.canDealMore = false; 
 		   						if (!boardHasSets()) {
 		   							endGame(); 
 		   						}  
@@ -52,14 +55,18 @@ app.controller('BoardController', ['$scope', '$rootScope', '$resource', function
 			   						board[set[j]] = newCards[j]; 
 			   						$scope.selected[set[j]] = false; 
 			   					}
+			   					$scope.canDealMore = true;
 		   					}
 		   				});
 	   				} else {
 	   					removeCards(set); 
-	   					if (numCards < 12) {
+	   					if (numCards < DEFAULT_NUM) { 
+	   						$scope.canDealMore = false;
 	   						if (!boardHasSets()) {
 		   						endGame(); 
 		   					}   
+	   					} else {
+	   						$scope.canDealMore = true;
 	   					}
 	   				}
 	   			}
@@ -68,7 +75,7 @@ app.controller('BoardController', ['$scope', '$rootScope', '$resource', function
 	};
 
 	$scope.dealMore = function() {
-		if (numCards < 15) {
+		if (numCards < MAX_CARDS) {
 			var NewCards = $resource('/deal3Cards'); 
 		   	var newCards = NewCards.query({}, function(){
 		   		for (var j = 0; j < newCards.length; j++) {
@@ -76,6 +83,7 @@ app.controller('BoardController', ['$scope', '$rootScope', '$resource', function
 		   			$scope.selected[board.length - 1] = false; 
 		   			numCards++; 
 		   		}
+		   		$scope.canDealMore = false; 
 		   	});
 	    }
 	};

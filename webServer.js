@@ -6,8 +6,8 @@ var app = express();
 
 app.use(express.static(__dirname));
 
+const DEFAULT_NUM = 12; 
 var cards = [];
-var numStartingCards = 12;  
 
 var server = app.listen(portno, function () {
 	var port = server.address().port;
@@ -32,7 +32,7 @@ app.get('/newGame', function (request, response) {
 	//randomly select first 12 cards 
 	var startingBoard = []; 
 
-	for (var m = 0; m < numStartingCards; m++) {
+	for (var m = 0; m < DEFAULT_NUM; m++) {
 		var rand = Math.floor(Math.random() * cards.length);
 		startingBoard.push(cards[rand]); 
 		cards.splice(rand, 1); 

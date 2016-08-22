@@ -95,7 +95,6 @@
   content: "\39";
 }
 
-
 .red {
 	color: #FF4E4E;
 }
@@ -114,8 +113,16 @@
 	width: 180px;
 	height: 40px; 
 	line-height: 40px; 
-	background-color: #4AACDE;
 	color: white; 
 	border-radius: 3px; 
 	cursor: pointer;
+}
+
+.enabled {
+	background-color: #4AACDE;
+}
+
+.disabled {
+	background-color: grey; 
+	cursor: not-allowed;
 }
