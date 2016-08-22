@@ -37,27 +37,75 @@
 
 .shape {
 	display: inline-block; 
-	font-size: 50px;
+	font-size: 12px;
 }
+
+@font-face {
+  font-family: 'icomoon';
+  src:  url('./shapes/icomoon.eot?eaappv');
+  src:  url('./shapes/icomoon.eot?eaappv#iefix') format('embedded-opentype'),
+    url('./shapes/icomoon.ttf?eaappv') format('truetype'),
+    url('./shapes/icomoon.woff?eaappv') format('woff'),
+    url('./shapes/icomoon.svg?eaappv#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-size: 90px;
+  letter-spacing: 8px; 
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-diamond-empty:before {
+  content: "\31";
+}
+.icon-oval-empty:before {
+  content: "\32";
+}
+.icon-rectangle-empty:before {
+  content: "\33";
+}
+.icon-diamond-shaded:before {
+  content: "\34";
+}
+.icon-oval-shaded:before {
+  content: "\35";
+}
+.icon-rectangle-shaded:before {
+  content: "\36";
+}
+.icon-diamond-solid:before {
+  content: "\37";
+}
+.icon-oval-solid:before {
+  content: "\38";
+}
+.icon-rectangle-solid:before {
+  content: "\39";
+}
+
 
 .red {
-	color: red;
+	color: #FF4E4E;
 }
 
-.green {
-	color: green; 
+.yellow {
+	color: #FAD130; 
 }
 
 .blue {
-	color: blue;
-}
-
-.solid {
-	text-decoration: overline;
-}
-
-.shaded {
-	text-decoration: underline;
+	color: #06B9BA;
 }
 
 .deal-button {

@@ -1,6 +1,6 @@
 'use strict'; 
 
-app.controller('BoardController', ['$scope', '$resource', function($scope, $resource) {
+app.controller('BoardController', ['$scope', '$rootScope', '$resource', function($scope, $rootScope, $resource) {
 
 	var cardsPerSet = 3; 
 	var maxCards = 15; 
@@ -9,12 +9,13 @@ app.controller('BoardController', ['$scope', '$resource', function($scope, $reso
 	var Board = $resource('/newGame'); 
 	var board = Board.query({}, function(){
 		$scope.board = board; 
-		numCards = board.length; 
+		numCards = board.length;  
 	}); 
 
 	$scope.numSets = 0; 
 	$scope.numSelected = 0; 
 	$scope.selected = []; 
+	$scope.canDealMore = true; 
 
 	$scope.toggleSelected = function(index) {
 		//if card is selected, deselect it
@@ -27,30 +28,39 @@ app.controller('BoardController', ['$scope', '$resource', function($scope, $reso
 	   			$scope.selected[index] = true;
 	   			$scope.numSelected++; 
 	   		}  
+	   		//if 3 cards are selected, check if they make a set
 	   		if ($scope.numSelected === 3) {
 	   			var set = []; 
 	   			for (var i = 0; i < numCards; i++) {
 	   				if ($scope.selected[i] === true) set.push(i); 
 	   			}
-	   			//check if 3 selected cards make a set
 	   			if (checkSet(set)) {
 	   				$scope.numSets++; 
 	   				$scope.numSelected = 0;
 
-	   				if (numCards <= 12) {
+	   				if (numCards === 12) {
 		   				var NewCards = $resource('/deal3Cards'); 
 		   				var newCards = NewCards.query({}, function(){
-		   					for (var j = 0; j < set.length; j++) {
-		   						board[set[j]] = newCards[j]; 
-		   						$scope.selected[set[j]] = false; 
+		   					//if no cards left
+		   					if (newCards.length === 0) {
+		   						removeCards(set); 
+		   						if (!boardHasSets()) {
+		   							endGame(); 
+		   						}  
+		   					} else {
+			   					for (var j = 0; j < set.length; j++) {
+			   						board[set[j]] = newCards[j]; 
+			   						$scope.selected[set[j]] = false; 
+			   					}
 		   					}
 		   				});
 	   				} else {
-	   					for (var j = set.length-1; j >= 0; j--) {
-		   					board.splice(set[j], 1);  
-		   					$scope.selected[set[j]] = false; 
-		   					numCards--; 
-		   				}
+	   					removeCards(set); 
+	   					if (numCards < 12) {
+	   						if (!boardHasSets()) {
+		   						endGame(); 
+		   					}   
+	   					}
 	   				}
 	   			}
 	   		}
@@ -67,7 +77,15 @@ app.controller('BoardController', ['$scope', '$resource', function($scope, $reso
 		   			numCards++; 
 		   		}
 		   	});
-	   }
+	    }
+	};
+
+	function removeCards(set) {
+		for (var j = set.length-1; j >= 0; j--) {
+		   	board.splice(set[j], 1);  
+		   	$scope.selected[set[j]] = false; 
+		   	numCards--; 
+		}
 	};
 
 	function checkSet(set) {
@@ -80,5 +98,23 @@ app.controller('BoardController', ['$scope', '$resource', function($scope, $reso
 				return false; 
 		}
 		return true; 
+	};
+
+	function boardHasSets() {
+		for (var i = 0; i < board.length - 2; i++) {
+			for (var j = i+1; j < board.length - 1; j++) {
+				for (var k = j+1; k < board.length; k++) {
+					var set = [i, j, k];  
+					if (checkSet(set)) {
+						return true; 
+					} 
+				}
+			}
+		}
+		return false; 
+	};
+
+	function endGame() {
+		$rootScope.$broadcast('stopTimer');  
 	};
 }]);

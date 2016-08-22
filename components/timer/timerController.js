@@ -1,16 +1,19 @@
 'use strict';
 
-app.controller('TimerController', ['$scope', '$interval', function($scope, $interval) {
-	$scope.timer = 0;
+app.controller('TimerController', ['$scope', '$rootScope', '$interval', function($scope, $rootScope, $interval) {
+  $scope.timer = 0;
 
-  	if($scope.myInterval){
-  		$interval.cancel($scope.myInterval);
-  	}
-    $scope.onInterval = function(){
-        $scope.timer++;
-    }
-    $scope.myInterval = $interval($scope.onInterval,1000);
+  if($scope.myInterval){
+  	$interval.cancel($scope.myInterval);
+  }
+  $scope.onInterval = function(){
+    $scope.timer++;
+  };
+  $scope.myInterval = $interval($scope.onInterval,1000);
 
+  $rootScope.$on('stopTimer', function() {
+    $interval.cancel($scope.myInterval);
+  });
 }]);
 
 app.filter('mmss', function () {

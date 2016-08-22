@@ -45,14 +45,19 @@ app.get('/newGame', function (request, response) {
 app.get('/deal3Cards', function (request, response) {
 	var newCards = [];
 
-	for (var i = 0; i < 3; i++) {
-		var rand = Math.floor(Math.random() * cards.length);
-		newCards.push(cards[rand]); 
-		cards.splice(rand, 1); 
+	if (cards.length === 0) {
+		response.status(200).send(newCards);
 	}
+	else {
+		for (var i = 0; i < 3; i++) {
+			var rand = Math.floor(Math.random() * cards.length);
+			newCards.push(cards[rand]); 
+			cards.splice(rand, 1); 
+		}
 
-	response.status(200).send(newCards);
+		response.status(200).send(newCards);
   	return;
+  	}
 });
 
 // io.on('connection', function(socket){

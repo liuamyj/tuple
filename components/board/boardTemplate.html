@@ -4,8 +4,8 @@
 </div>
 
 <div class="container">
-	<div class="card" ng-repeat="card in board" ng-class="[{1:'red', 2:'green',3:'blue'}[card[0]], {selected: selected[$index] === true}]" ng-click="toggleSelected($index)">
-		<div class="shape" ng-repeat="n in [].constructor(card[1]) track by $index" ng-class="{1:'solid', 2:'shaded',3:'empty'}[card[2]]">{{card[3]}}</div> 
+	<div class="card" ng-repeat="card in board" ng-class="[{1:'red', 2:'yellow', 3:'blue'}[card[0]], {selected: selected[$index] === true}]" ng-click="toggleSelected($index)">
+		<i class="icon-" ng-repeat="n in [].constructor(card[1]) track by $index">{{card[3] + 3*(card[2] - 1)}}</i> 
 	</div>
 	<div class="deal-button" ng-click="dealMore()">Deal 3 More Cards</div>
 </div>
